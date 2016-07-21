@@ -35,7 +35,7 @@ class Robinhood:
   auth_token = None
 
   ##############################
-  #Logging in and initializing
+  # Logging in and initializing
   ##############################
 
   def __init__(self):

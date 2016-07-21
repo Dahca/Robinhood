@@ -1,3 +1,6 @@
+# Temp files
+*.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -47,7 +50,7 @@ coverage.xml
 *.mo
 *.pot
 
-#Vim stuff
+# Vim stuff
 *.swp
 
 # Django stuff:

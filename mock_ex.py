@@ -1,12 +1,10 @@
-from Robinhood import Robinhood
-from getpass import getpass
+from Mock import Mock
 
 # Setup
-my_trader = Robinhood();
+my_trader = Mock("example.json");
 # Login
-#my_trader.login(username="YOUR_USERNAME", password="YOUR_PASSWORD")
-while not my_trader.login():
-  print("Sorry, login failed. Try again.")
+#while not my_trader.login():
+ # print("Sorry, login failed. Try again.")
 
 # Get stock information
 # Note: Sometimes more than one instrument may be returned for a
@@ -17,7 +15,7 @@ stock_instrument = my_trader.instruments("GEVO")[0]
 my_trader.print_quote("AAPL")
 
 # Prompt for a symbol
-my_trader.print_quote()
+#my_trader.print_quote()
 
 # Print multiple symbols
 my_trader.print_quotes(stocks=["BBRY", "FB", "MSFT"])
