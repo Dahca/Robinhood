@@ -5,7 +5,7 @@ import urllib
 
 from os.path import isfile
 
-from Robinhood import Robinhood
+from robinhood import Robinhood
 
 # A simulated account for use by the Mock class
 class Account:
@@ -47,7 +47,7 @@ class Account:
       raise ValueError("Buy amount larger than available cash")
     self.holdings[tag] += amount
     self.cash -= (float(amount) * float(price))
-  
+
   def current_price(tag):
     url = str(quotes_url) + str(tag) + "/"
     # Check for validity of symbol
@@ -60,11 +60,14 @@ class Account:
     except (ValueError):
       raise NameError("Invalid Symbol: " + tag);
 
-  def value(self):
-    amount = self.cash
-    for tag, amount in self.holdings:
-      amount += (float(amount) * float(current_price(tag)))
+  def market_value(self):
+    amount = float(0)
+    for tag, num in self.holdings:
+      amount += (float(num) * float(current_price(tag)))
     return amount
+
+  def value(self):
+    return self.cash + self.market_value()
 
   def holdings(self):
     return self.holdings
@@ -101,15 +104,11 @@ class Mock(Robinhood):
   ##############################
 
   def investment_profile(self):
-    self.session.get(self.endpoints['investment_profile'])
-
-  def instruments(self, stock=None):
-    res = self.session.get(self.endpoints['instruments'],
-                           params={'query' : stock.upper()}).json()
-    return res['results']
+    raise NotImplementedError("No mock method for investment_profile()")
+    #self.session.get(self.endpoints['investment_profile'])
 
   def get_account(self):
-    return self.session.get(self.endpoints['accounts']).json()['results'][0]
+    return self.account.raw()
 
   ##############################
   # Portfolios data
@@ -117,34 +116,48 @@ class Mock(Robinhood):
 
   def portfolios(self):
     # Returns the user's portfolio data.
-    return self.session.get(self.endpoints['portfolios']).json()['results'][0]
+    mock_portfolio = {
+      "equity": self.equity(),
+      "market_value": self.market_value()
+    }
+    return mock_portfolio
 
   def adjusted_equity_previous_close(self):
-    return float(self.portfolios()['adjusted_equity_previous_close'])
+    raise NotImplementedError(
+        "No mock method for adjusted_equity_previous_close()")
+    #return float(self.portfolios()['adjusted_equity_previous_close'])
 
   def equity(self):
-    return float(self.portfolios()['equity'])
+    return self.account.value()
 
   def equity_previous_close(self):
-    return float(self.portfolios()['equity_previous_close'])
+    raise NotImplementedError("No mock method for equity_previous_close()")
+    #return float(self.portfolios()['equity_previous_close'])
 
   def excess_margin(self):
-    return float(self.portfolios()['excess_margin'])
+    raise NotImplementedError("No mock method for excess_margin()")
+    #return float(self.portfolios()['excess_margin'])
 
   def extended_hours_equity(self):
-    return float(self.portfolios()['extended_hours_equity'])
+    raise NotImplementedError(
+        "No mock method for extended_hours_equity()")
+    #return float(self.portfolios()['extended_hours_equity'])
 
   def extended_hours_market_value(self):
-    return float(self.portfolios()['extended_hours_market_value'])
+    raise NotImplementedError(
+        "No mock method for extended_hours_market_value()")
+    #return float(self.portfolios()['extended_hours_market_value'])
 
   def last_core_equity(self):
-    return float(self.portfolios()['last_core_equity'])
+    raise NotImplementedError("No mock method for last_core_equity()")
+    #return float(self.portfolios()['last_core_equity'])
 
   def last_core_market_value(self):
-    return float(self.portfolios()['last_core_market_value'])
+    raise NotImplementedError("No mock method for last_core_market_value()")
+    #return float(self.portfolios()['last_core_market_value'])
 
   def market_value(self):
-    return float(self.portfolios()['market_value'])
+    return self.account.market_value()
 
   ##############################
   # Positions data
@@ -152,7 +165,8 @@ class Mock(Robinhood):
 
   def positions(self):
     # Returns the user's positions data.
-    return self.session.get(self.endpoints['positions']).json()['results']
+    raise NotImplementedError("No mock method for positions()")
+    #return self.session.get(self.endpoints['positions']).json()['results']
 
   def securities_owned(self):
     # Returns a list of symbols of securities of which there are more
@@ -166,10 +180,9 @@ class Mock(Robinhood):
   # Place order
   ##############################
 
-  place_order = None
-
   def place_buy_order(self, tag, quantity, bid_price=None):
     self.account.buy(tag, quantity)
 
   def place_sell_order(self, tag, quantity, bid_price=None):
     self.account.sell(tag, quantity)
+

@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import getpass
 import json
 import requests
@@ -49,11 +51,12 @@ class Robinhood:
         "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
         "X-Robinhood-API-Version": "1.0.0",
         "Connection": "keep-alive",
-        "User-Agent": "Robinhood/823 (iPhone; iOS 9.3.3; Scale/2.00)"
+        "User-Agent": "Robinhood/823 (iPhone iOS 9.3.3 Scale/2.00)"
     }
     self.session.headers = self.headers
 
-  def login(self, username=None, password=None):
+  def login(self, username=None, password=None, retry=True,
+            message="Incorrect login, please try again"):
     if username is None:
       username = raw_input("Username: ")
     if password is None:
@@ -61,12 +64,20 @@ class Robinhood:
     self.username = username
     self.password = password
     data = "password=%s&username=%s" % (self.password, self.username)
-    res = self.session.post(self.endpoints['login'], data=data)
-    res = res.json()
+    res = self.session.post(self.endpoints['login'], data=data).json()
     try:
       self.auth_token = res['token']
     except KeyError:
-      return False
+      if retry:
+        print(message)
+        print("Reason: ", end="")
+        try:
+          print(res["detail"])
+        except KerError:
+          pass
+        return self.login(message=message)
+      else:
+        return False
     self.headers['Authorization'] = 'Token '+self.auth_token
     return True
 
@@ -75,9 +86,13 @@ class Robinhood:
   ##############################
 
   def investment_profile(self):
-    self.session.get(self.endpoints['investment_profile'])
+    res = self.session.get(self.endpoints['investment_profile']).json()
+    return res
 
   def instruments(self, stock=None):
+    # Prompt for stock if not entered
+    if stock is None:
+      stock = raw_input("Symbol: ")
     res = self.session.get(self.endpoints['instruments'],
                            params={'query':stock.upper()}).json()
     return res['results']
@@ -85,17 +100,17 @@ class Robinhood:
   def quote_data(self, stock=None):
     # Prompt for stock if not entered
     if stock is None:
-      stock = raw_input("Symbol: ");
+      stock = raw_input("Symbol: ")
     url = str(self.endpoints['quotes']) + str(stock) + "/"
     # Check for validity of symbol
     try:
-      res = json.loads((urllib.urlopen(url)).read());
+      res = json.loads((urllib.urlopen(url)).read())
       if len(res) > 0:
-        return res;
+        return res
       else:
-        raise NameError("Invalid Symbol: " + stock);
+        raise NameError("Invalid Symbol: " + stock)
     except (ValueError):
-      raise NameError("Invalid Symbol: " + stock);
+      raise NameError("Invalid Symbol: " + stock)
 
   def get_quote(self, stock=None):
     data = self.quote_data(stock)
@@ -103,7 +118,7 @@ class Robinhood:
 
   def print_quote(self, stock=None):
     data = self.quote_data(stock)
-    print(data["symbol"] + ": $" + data["last_trade_price"]);
+    print(data["symbol"] + ": $" + data["last_trade_price"])
 
   def print_quotes(self, stocks):
     for i in range(len(stocks)):
@@ -224,3 +239,4 @@ class Robinhood:
   def place_sell_order(self, instrument, quantity, bid_price=None):
     transaction = "sell"
     return self.place_order(instrument, quantity, bid_price, transaction)
+
