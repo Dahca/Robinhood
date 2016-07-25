@@ -10,7 +10,7 @@ See this [blog post](https://medium.com/@rohanpai25/reversing-robinhood-free-acc
 - User positions data (`Robinhood.positions`)
 - More coming soon
 
-###How To Install:
+###How To Install Dependencies:
     pip install -r requirements.txt
 
 ###How to Use (see [example.py](https://github.com/Jamonek/Robinhood/blob/master/example.py))
