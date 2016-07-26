@@ -6,6 +6,11 @@ import requests
 import urllib
 import sys
 
+try:
+  from urllib import urlopen
+except ImportError:
+  from urllib.request import urlopen
+
 class Robinhood:
 
   endpoints = {
@@ -106,7 +111,7 @@ class Robinhood:
     url = str(self.endpoints["quotes"]) + str(stock) + "/"
     # Check for validity of symbol
     try:
-      res = json.loads((urllib.urlopen(url)).read())
+      res = json.loads(urlopen(url).read().decode("utf-8"))
       if len(res) > 0:
         return res
       raise NameError("Invalid Symbol: " + stock)
