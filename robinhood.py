@@ -118,13 +118,10 @@ class Robinhood:
       res = json.loads(urlopen(url).read().decode("utf-8"))
       if len(res) > 0:
         return res
-      raise NameError("Invalid Symbol: " + stock)
-    except ValueError:
-      raise NameError("Invalid Symbol: " + stock)
-    except HTTPError as err:
-      if err.code != 400:
+    except (ValueError, HTTPError) as err:
+      if isinstance(err, HTTPError) and err.code != 400:
         raise
-      raise NameError("Invalid Symbol: " + stock)
+    raise NameError("Invalid Symbol: " + stock)
 
   def get_quote(self, stock=None):
     return self.quote_data(stock)["symbol"]
