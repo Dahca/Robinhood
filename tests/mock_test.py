@@ -15,12 +15,16 @@ def get_res_name(name):
     return res_path
   raise NameError("No such resource: " + name)
 
-def assert_account_empty(account, filename=None):
+def assert_account_equals(account, cash=float(0), history={}, holdings={},
+                          filename=None):
   assert isinstance(account, Account)
-  assert account.cash == float(0)
-  assert account.holdings == {}
-  assert account.history == {}
+  assert abs(account.cash - cash) <= 0.001
+  assert account.holdings == holdings
+  assert account.history == history
   assert account.file == filename
+
+def assert_account_empty(account, filename=None):
+  assert_account_equals(account, filename=filename)
 
 ##############################
 # Test Methods
@@ -33,6 +37,11 @@ def test_account_init_1():
   filename = get_res_name("res/empty.json")
   account = Account(filename)
   assert_account_empty(account, filename)
+
+def test_account_init_2():
+  filename = get_res_name("res/init_test.json")
+  account = Account(filename)
+  assert_account_equals(account, 3.7, {"foo": "bar"}, {"GOOG": 3}, filename)
 
 def test_mock_init_0():
   assert_account_empty(Mock().account)

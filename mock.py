@@ -33,7 +33,7 @@ class Account:
             separators=(",", ": "))
 
   def fill(self, obj):
-    self.cash = obj["cash"]
+    self.cash = float(obj["cash"])
     self.holdings = obj["holdings"]
     self.history = obj["history"]
 
