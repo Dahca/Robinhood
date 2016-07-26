@@ -12,7 +12,7 @@ See this [blog post][].
 - More coming soon
 
 ### How To Install Dependencies:
-    pip install (--upgrade) -r requirements.txt
+    pip install [--upgrade] -r requirements.txt
 
 ### How to Use (see [example.py][])
 

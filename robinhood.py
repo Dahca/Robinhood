@@ -105,6 +105,10 @@ class Robinhood:
     return res["results"]
 
   def quote_data(self, stock=None):
+    try:
+      from urllib.error import HTTPError
+    except ImportError:
+      from urllib2 import HTTPError
     # Prompt for stock if not entered
     if stock is None:
       stock = raw_input("Symbol: ")
@@ -116,6 +120,10 @@ class Robinhood:
         return res
       raise NameError("Invalid Symbol: " + stock)
     except ValueError:
+      raise NameError("Invalid Symbol: " + stock)
+    except HTTPError as err:
+      if err.code != 400:
+        raise
       raise NameError("Invalid Symbol: " + stock)
 
   def get_quote(self, stock=None):
