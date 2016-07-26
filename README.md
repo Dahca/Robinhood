@@ -1,8 +1,6 @@
-# Robinhood
+# Robinhood [![Build Status][]][Travis CI]
 Python Framework to make trades with Robinhood Private API.
-See this [blog post][blog].
-
-[![Build Status][build icon]][travis]
+See this [blog post][].
 
 ## Current Features
 - Placing buy orders (`Robinhood.place_buy_order`)
@@ -50,7 +48,7 @@ See this [blog post][blog].
 * User positions data
   + Securities owned
 
-[blog]: https://medium.com/@rohanpai25/reversing-robinhood-free-accessible-automated-stock-trading-f40fba1e7d8b
-[build icon]: https://travis-ci.org/Dahca/Robinhood.svg?branch=master
+[blog post]: https://medium.com/@rohanpai25/reversing-robinhood-free-accessible-automated-stock-trading-f40fba1e7d8b
+[Build Status]: https://travis-ci.org/Dahca/Robinhood.svg?branch=master
 [example.py]: https://github.com/Jamonek/Robinhood/blob/master/example.py
-[travis]: https://travis-ci.org/Dahca/Robinhood
+[Travis CI]: https://travis-ci.org/Dahca/Robinhood
