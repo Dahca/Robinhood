@@ -4,3 +4,6 @@ from Robinhood.mock import Mock, Account
 def test_account_init_0():
   account = Account()
   assert account.cash == float(0)
+  assert account.holdings == {}
+  assert account.history == {}
+

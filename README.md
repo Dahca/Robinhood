@@ -1,10 +1,10 @@
 # Robinhood
 Python Framework to make trades with Robinhood Private API.
-See this [blog post](https://medium.com/@rohanpai25/reversing-robinhood-free-accessible-automated-stock-trading-f40fba1e7d8b).
+See this [blog post][blog].
 
-[![Build Status](https://travis-ci.org/Dahca/Robinhood.svg?branch=master)](https://travis-ci.org/Dahca/Robinhood)
+[![Build Status][build icon]][travis]
 
-##Current Features 
+## Current Features
 - Placing buy orders (`Robinhood.place_buy_order`)
 - Placing sell order (`Robinhood.place_sell_order`)
 - Quote information (`Robinhood.quote_data`)
@@ -12,10 +12,10 @@ See this [blog post](https://medium.com/@rohanpai25/reversing-robinhood-free-acc
 - User positions data (`Robinhood.positions`)
 - More coming soon
 
-###How To Install Dependencies:
+### How To Install Dependencies:
     pip install -r requirements.txt
 
-###How to Use (see [example.py](https://github.com/Jamonek/Robinhood/blob/master/example.py))
+### How to Use (see [example.py][example.py])
 
     from Robinhood import Robinhood
     my_trader = Robinhood()
@@ -25,7 +25,7 @@ See this [blog post](https://medium.com/@rohanpai25/reversing-robinhood-free-acc
     buy_order = my_trader.place_buy_order(stock_instrument, 1)
     sell_order = my_trader.place_sell_order(stock_instrument, 1)
 
-###Data returned
+### Data returned
 * Quote data
   + Ask Price
   + Ask Size
@@ -49,3 +49,8 @@ See this [blog post](https://medium.com/@rohanpai25/reversing-robinhood-free-acc
   + Market value
 * User positions data
   + Securities owned
+
+[blog]: https://medium.com/@rohanpai25/reversing-robinhood-free-accessible-automated-stock-trading-f40fba1e7d8b
+[build icon]: https://travis-ci.org/Dahca/Robinhood.svg?branch=master
+[example.py]: https://github.com/Jamonek/Robinhood/blob/master/example.py
+[travis]: https://travis-ci.org/Dahca/Robinhood
