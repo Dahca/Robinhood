@@ -20,22 +20,19 @@ class Account:
   quotes_url = Robinhood.endpoints["quotes"]
 
   def __init__(self, file=None):
-    if file is not None and not isfile(file):
-      self.file = file
-      self.fill({"cash": float(0), "holdings": {}, "history": {}})
-    elif file is None:
-      self.file = None
-      self.fill({"cash": float(0), "holdings": {}, "history": {}})
-    else:
-      self.file = file
+    self.file = file
+    if isfile(str(file)):
       json_data = open(self.file).read()
       json_obj = json.loads(json_data)
       self.fill(json_obj)
+    else:
+      self.fill({"cash": float(0), "holdings": {}, "history": {}})
 
   def __del__(self):
     if self.file is not None:
       with open(self.file, "w+") as f:
-        json.dump(self.raw(), f, sort_keys=True, indent=4, ensure_ascii=False)
+        json.dump(self.raw(), f, sort_keys=True, indent=4, ensure_ascii=False,
+            separators=(",", ": "))
 
   def fill(self, obj):
     self.cash = obj["cash"]
@@ -63,7 +60,7 @@ class Account:
         return res["symbol"];
       else:
         raise NameError("Invalid Symbol: " + tag);
-    except (ValueError):
+    except ValueError:
       raise NameError("Invalid Symbol: " + tag);
 
   def market_value(self):
@@ -88,9 +85,11 @@ class Account:
     self.cash += float(dollars)
 
   def raw(self):
-    return {"cash": self.cash,
+    return {
+        "cash": self.cash,
         "holdings": self.holdings,
-        "history": self.history}
+        "history": self.history
+    }
 
 
 # This class is for simulating trades based on real market data retrieved from
