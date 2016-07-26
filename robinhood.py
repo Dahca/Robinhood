@@ -4,6 +4,7 @@ import getpass
 import json
 import requests
 import urllib
+import sys
 
 class Robinhood:
 
@@ -54,7 +55,10 @@ class Robinhood:
 
   def __init__(self):
     self.session = requests.session()
-    self.session.proxies = urllib.getproxies()
+    if sys.version_info[0] < 3:
+      self.session.proxies = urllib.getproxies()
+    else:
+      self.session.proxies = urllib.request.getproxies()
     self.session.headers = self.headers
 
   def login(self, username=None, password=None, retry=True):
@@ -75,7 +79,7 @@ class Robinhood:
           print(res["detail"])
         except:
           pass
-        return self.login(message=message)
+        return self.login()
       return False
     self.headers["Authorization"] = "Token " + self.auth_token
     return True
