@@ -2,6 +2,8 @@
 Python Framework to make trades with Robinhood Private API.
 See this [blog post](https://medium.com/@rohanpai25/reversing-robinhood-free-accessible-automated-stock-trading-f40fba1e7d8b).
 
+[![Build Status](https://travis-ci.org/Dahca/Robinhood.svg?branch=master)](https://travis-ci.org/Dahca/Robinhood)
+
 ##Current Features 
 - Placing buy orders (`Robinhood.place_buy_order`)
 - Placing sell order (`Robinhood.place_sell_order`)
