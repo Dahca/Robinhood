@@ -23,8 +23,10 @@ class Account:
       json_data = open(self.file).read()
       json_obj = json.loads(json_data)
       self.fill(json_obj)
-    else:
+    elif file is None:
       self.fill({"cash": float(0), "holdings": {}, "history": {}})
+    else:
+      raise NameError("No such file: " + file)
 
   def __del__(self):
     if self.file is not None:
@@ -81,6 +83,11 @@ class Account:
 
   def deposit(self, dollars):
     self.cash += float(dollars)
+
+  def withdraw(self, dollars):
+    if self.cash < dollars:
+      raise ValueError("Trying to withdraw too much money")
+    self.cash -= float(dollars)
 
   def raw(self):
     return {
@@ -175,7 +182,7 @@ class Mock(Robinhood):
     # Returns a list of symbols of securities of which there are more
     # than zero shares in user's portfolio.
     securities = []
-    for key, val in self.account.holdings():
+    for key in self.account.holdings:
       securities += [key]
     return securities
 
