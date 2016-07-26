@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import getpass
 import json
 import requests
@@ -5,6 +7,7 @@ import urllib
 
 from os.path import isfile
 
+# Resolve compatibility issues between python2 and python3
 try:
   from robinhood import Robinhood
 except ImportError:
