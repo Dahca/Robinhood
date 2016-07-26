@@ -5,7 +5,10 @@ import urllib
 
 from os.path import isfile
 
-from robinhood import Robinhood
+try:
+  from robinhood import Robinhood
+except ImportError:
+  from .robinhood import Robinhood
 
 # A simulated account for use by the Mock class
 class Account:
