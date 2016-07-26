@@ -6,10 +6,13 @@ import requests
 import urllib
 import sys
 
-try:
-  from urllib import urlopen
-except ImportError:
-  from urllib.request import urlopen
+if sys.version_info[0] < 3:
+  from urllib import urlopen, getproxies
+  from urllib2 import HTTPError
+  input = raw_input
+else:
+  from urllib.error import HTTPError
+  from urllib.request import urlopen, getproxies
 
 class Robinhood:
 
@@ -60,30 +63,25 @@ class Robinhood:
 
   def __init__(self):
     self.session = requests.session()
-    if sys.version_info[0] < 3:
-      self.session.proxies = urllib.getproxies()
-    else:
-      self.session.proxies = urllib.request.getproxies()
+    self.session.proxies = getproxies()
     self.session.headers = self.headers
 
   def login(self, username=None, password=None, retry=True):
     if username is None:
-      username = raw_input("Username: ")
+      username = input("Username: ")
     if password is None:
       password = getpass.getpass()
     self.username = username
     self.password = password
     data = "password=%s&username=%s" % (self.password, self.username)
     res = self.session.post(self.endpoints["login"], data=data).json()
-    try:
+    if "token" in res:
       self.auth_token = res["token"]
-    except KeyError:
+    else:
       if retry:
         print("Incorrect login, please try again\nReason: ", end="")
-        try:
+        if "detail" in res:
           print(res["detail"])
-        except:
-          pass
         return self.login()
       return False
     self.headers["Authorization"] = "Token " + self.auth_token
@@ -99,19 +97,15 @@ class Robinhood:
   def instruments(self, stock=None):
     # Prompt for stock if not entered
     if stock is None:
-      stock = raw_input("Symbol: ")
+      stock = input("Symbol: ")
     params = {"query": stock.upper()}
     res = self.session.get(self.endpoints["instruments"], params=params).json()
     return res["results"]
 
   def quote_data(self, stock=None):
-    try:
-      from urllib.error import HTTPError
-    except ImportError:
-      from urllib2 import HTTPError
     # Prompt for stock if not entered
     if stock is None:
-      stock = raw_input("Symbol: ")
+      stock = input("Symbol: ")
     url = str(self.endpoints["quotes"]) + str(stock) + "/"
     # Check for validity of symbol
     try:
@@ -246,3 +240,4 @@ class Robinhood:
 
   def place_sell_order(self, instrument, quantity, bid_price=None):
     return self.place_order(instrument, quantity, bid_price, "sell")
+

@@ -20,6 +20,9 @@ def test_login_0():
 def test_endpoints_0():
   assert Robinhood().investment_profile() is not None
 
+def test_endpoints_1():
+  assert Robinhood().instruments("GOOG") is not None
+
 def test_quote_data_0():
   assert Robinhood().quote_data("GOOG") is not None
 
