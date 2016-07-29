@@ -1,4 +1,5 @@
-# Robinhood [![Build Status][]][Travis CI]
+# Robinhood
+[![Build Status][]][Travis CI] [![Coverage Status][]][Coveralls]
 Python Framework to make trades with Robinhood Private API.
 See this [blog post][].
 
@@ -51,5 +52,7 @@ See this [blog post][].
 
 [blog post]: https://medium.com/@rohanpai25/reversing-robinhood-free-accessible-automated-stock-trading-f40fba1e7d8b
 [Build Status]: https://travis-ci.org/Dahca/Robinhood.svg?branch=master
+[Coverage Status]: https://coveralls.io/repos/github/Dahca/Robinhood/badge.svg?branch=master
+[Coveralls]: https://coveralls.io/github/Dahca/Robinhood?branch=master
 [example.py]: https://github.com/Jamonek/Robinhood/blob/master/example.py
 [Travis CI]: https://travis-ci.org/Dahca/Robinhood
