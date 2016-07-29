@@ -1,3 +1,6 @@
 __all__ = ["mock", "robinhood", "tests"]
-from mock import Account, MockTrader
+import robinhood
 from robinhood import RobinhoodTrader
+import mock
+from mock import Account
+from mock import MockTrader
