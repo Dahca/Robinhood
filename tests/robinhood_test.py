@@ -5,6 +5,7 @@
 # not require a user login.
 ############################################################
 
+import Robinhood
 from Robinhood.robinhood import Robinhood
 
 ##############################
