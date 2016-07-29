@@ -5,12 +5,7 @@
 # not require a user login.
 ############################################################
 
-<<<<<<< Updated upstream
-import Robinhood
-from Robinhood.robinhood import Robinhood
-=======
-from Robinhood.robinhood import RobinhoodTrader
->>>>>>> Stashed changes
+from ..robinhood import RobinhoodTrader
 
 ##############################
 # Test Methods

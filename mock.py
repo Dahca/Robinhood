@@ -15,7 +15,7 @@ except ImportError:
 class Account:
 
   # Used to calculate the value of an account
-  quotes_url = Robinhood.endpoints["quotes"]
+  quotes_url = RobinhoodTrader.endpoints["quotes"]
 
   def __init__(self, file=None):
     self.file = file

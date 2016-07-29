@@ -2,12 +2,7 @@
 # Tests for the Mock and Account classes
 ############################################################
 
-<<<<<<< Updated upstream
-import Robinhood
-from Robinhood.mock import Mock, Account
-=======
-from Robinhood.mock import MockTrader, Account
->>>>>>> Stashed changes
+from ..mock import MockTrader, Account
 
 ##############################
 # Utility Methods
