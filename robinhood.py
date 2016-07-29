@@ -14,7 +14,7 @@ else:
   from urllib.error import HTTPError
   from urllib.request import urlopen, getproxies
 
-class Robinhood:
+class RobinhoodTrader:
 
   endpoints = {
       "login": "https://api.robinhood.com/api-token-auth/",

@@ -5,31 +5,35 @@
 # not require a user login.
 ############################################################
 
+<<<<<<< Updated upstream
 import Robinhood
 from Robinhood.robinhood import Robinhood
+=======
+from Robinhood.robinhood import RobinhoodTrader
+>>>>>>> Stashed changes
 
 ##############################
 # Test Methods
 ##############################
 
 def test_init_0():
-  Robinhood()
+  RobinhoodTrader()
 
 def test_login_0():
-  assert Robinhood().login("foo", "bar", False) is False
+  assert RobinhoodTrader().login("foo", "bar", False) is False
 
 def test_endpoints_0():
-  assert Robinhood().investment_profile() is not None
+  assert RobinhoodTrader().investment_profile() is not None
 
 def test_endpoints_1():
-  assert Robinhood().instruments("GOOG") is not None
+  assert RobinhoodTrader().instruments("GOOG") is not None
 
 def test_quote_data_0():
-  assert Robinhood().quote_data("GOOG") is not None
+  assert RobinhoodTrader().quote_data("GOOG") is not None
 
 def test_quote_data_1():
   try:
-    Robinhood().quote_data("Not a stock")
+    RobinhoodTrader().quote_data("Not a stock")
     assert False
   except NameError as ne:
     assert str(ne) == "Invalid Symbol: Not a stock"

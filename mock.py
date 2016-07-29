@@ -7,9 +7,9 @@ from os.path import isfile
 
 # Resolve compatibility issues between python2 and python3
 try:
-  from robinhood import Robinhood
+  from robinhood import RobinhoodTrader
 except ImportError:
-  from .robinhood import Robinhood
+  from .robinhood import RobinhoodTrader
 
 # A simulated account for use by the Mock class
 class Account:
@@ -99,14 +99,14 @@ class Account:
 
 # This class is for simulating trades based on real market data retrieved from
 # Robinhood
-class Mock(Robinhood):
+class MockTrader(RobinhoodTrader):
 
   ##############################
   # Logging in and initializing
   ##############################
 
   def __init__(self, account_file=None):
-    Robinhood.__init__(self)
+    RobinhoodTrader.__init__(self)
     self.account = Account(account_file)
 
   ##############################

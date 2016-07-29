@@ -2,8 +2,12 @@
 # Tests for the Mock and Account classes
 ############################################################
 
+<<<<<<< Updated upstream
 import Robinhood
 from Robinhood.mock import Mock, Account
+=======
+from Robinhood.mock import MockTrader, Account
+>>>>>>> Stashed changes
 
 ##############################
 # Utility Methods
@@ -52,18 +56,18 @@ def test_account_setup_0():
   assert_account_equals(account, cash=float(50))
 
 def test_mock_init_0():
-  assert_account_empty(Mock().account)
+  assert_account_empty(MockTrader().account)
 
 def test_mock_init_1():
   filename = get_res_name("res/empty.json")
-  mock = Mock(filename)
+  mock = MockTrader(filename)
   assert_account_empty(mock.account, filename)
 
 def test_mock_init_2():
-  assert Mock().portfolios() == { "equity": 0.0, "market_value": 0.0 }
+  assert MockTrader().portfolios() == { "equity": 0.0, "market_value": 0.0 }
 
 def test_mock_init_3():
   filename = get_res_name("res/init_test.json")
-  mock = Mock(filename)
+  mock = MockTrader(filename)
   assert mock.securities_owned() == ["GOOG"]
 
