@@ -10,7 +10,11 @@ python:
     - "nightly" # currently points to 3.6-dev
 # command to install dependencies
 install:
-  - "pip install --upgrade -r requirements.txt"
+  - pip install --upgrade -r requirements.txt
+  - pip install coveralls
 # command to run tests
 script:
   - nosetests tests/
+  - coverage run --source=yourpackagename setup.py test
+after_success:
+  - coveralls
