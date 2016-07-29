@@ -2,7 +2,13 @@
 # Tests for the Mock and Account classes
 ############################################################
 
-from ..mock import MockTrader, Account
+try:
+  from ..mock import MockTrader, Account
+except ValueError:
+  import Robinhood
+  from Robinhood import mock
+  from mock import Account
+  from mock import MockTrader
 
 ##############################
 # Utility Methods

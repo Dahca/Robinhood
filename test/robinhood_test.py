@@ -5,7 +5,12 @@
 # not require a user login.
 ############################################################
 
-from ..robinhood import RobinhoodTrader
+try:
+  from ..robinhood import RobinhoodTrader
+except ValueError:
+  import Robinhood
+  from Robinhood import robinhood
+  from robinhood import RobinhoodTrader
 
 ##############################
 # Test Methods
