@@ -14,7 +14,8 @@ install:
   - pip install coveralls
 # command to run tests
 script:
+  - pwd
   - nosetests robinhood/test/
-  - coverage run --source=Robinhood setup.py test
+  - coverage run --source=robinhood setup.py test
 after_success:
   - coveralls
