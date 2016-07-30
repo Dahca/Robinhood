@@ -8,5 +8,5 @@ setup(name='robinhood',
       author_email='ian.gl.neal@gmail.com',
       url='https://github.com/Dahca/Robinhood/',
       packages=['robinhood', "robinhood.test"],
-      test_suite="nose.collector",
+      test_suite="nose.collector"
 )
