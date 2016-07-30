@@ -12,6 +12,8 @@ python:
 install:
   - pip install --upgrade -r requirements.txt
   - pip install coveralls
+  - pip install -e .
+  - pip install -e ".[test]"
 # command to run tests
 script:
   - pwd
