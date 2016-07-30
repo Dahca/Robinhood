@@ -7,6 +7,7 @@ setup(name='robinhood',
       author='Ian Glen Neal',
       author_email='ian.gl.neal@gmail.com',
       url='https://github.com/Dahca/Robinhood/',
+      package_dir={'': 'robinhood'},
       packages=['robinhood', "robinhood.test"],
       test_suite="nose.collector",
-     )
+)
