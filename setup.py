@@ -1,11 +1,12 @@
 #! /usr/bin/env python
-from distutils.core import setup
+from setuptools import setup
 
-setup(name='Robinhood',
+setup(name='robinhood',
       version='0.1',
       description='Stock Trading API based on Robinhood',
       author='Ian Glen Neal',
       author_email='ian.gl.neal@gmail.com',
       url='https://github.com/Dahca/Robinhood/',
-      packages=['Robinhood', 'Robinhood.test'],
+      packages=['robinhood', "robinhood.test"],
+      test_suite="nose.collector",
      )

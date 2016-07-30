@@ -1,9 +1,0 @@
-{
-    "cash": 3.7,
-    "history": {
-        "foo": "bar"
-    },
-    "holdings": {
-        "GOOG": 3
-    }
-}
