@@ -1,0 +1,4 @@
+# Don't ignore .json files in this specific directory - used as test
+# resources
+
+!*.json
