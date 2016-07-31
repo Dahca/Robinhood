@@ -7,7 +7,7 @@
 
 try:
   from .. import RobinhoodTrader
-except ValueError:
+except (ValueError, ImportError):
   import robinhood
   from robinhood import RobinhoodTrader
 

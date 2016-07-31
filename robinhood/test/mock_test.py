@@ -4,7 +4,7 @@
 
 try:
   from .. import MockTrader, Account
-except ValueError:
+except (ValueError, ImportError):
   import robinhood
   from robinhood import Account
   from robinhood import MockTrader
