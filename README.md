@@ -1,5 +1,7 @@
 # Robinhood
+
 [![Build Status][]][Travis CI] [![Coverage Status][]][Coveralls]
+
 Python Framework to make trades with Robinhood Private API.
 See this [blog post][].
 
@@ -13,13 +15,13 @@ See this [blog post][].
 - More coming soon
 
 ### How To Install Dependencies:
-    pip install [--upgrade] -r requirements.txt
+    [sudo -H] pip install [--upgrade] -r requirements.txt
 
 ### How to Use (see [example.py][])
 
     from Robinhood import Robinhood
     my_trader = Robinhood()
-    logged_in = my_trader.login(username="USERNAME HERE", password="PASSWORD HERE")
+    logged_in = my_trader.login(username="USERNAME", password="PASSWORD")
     stock_instrument = my_trader.instruments("GEVO")[0]
     quote_info = my_trader.quote_data("GEVO")
     buy_order = my_trader.place_buy_order(stock_instrument, 1)
