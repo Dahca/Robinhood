@@ -5,11 +5,7 @@ import urllib
 
 from os.path import isfile
 
-# Resolve compatibility issues between python2 and python3
-try:
-  from robinhood_trader import RobinhoodTrader
-except ImportError:
-  from .robinhood_trader import RobinhoodTrader
+from robinhood_trader import RobinhoodTrader
 
 # A simulated account for use by the Mock class
 class Account:

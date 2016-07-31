@@ -1,15 +1,11 @@
-############################################################
+###############################################################################
 # Tests for the Robinhood class
 #
-# Note that this will only be able to test methods that do
-# not require a user login.
-############################################################
+# Note that this will only be able to test methods that do not require a user
+# login.
+###############################################################################
 
-try:
-  from .. import RobinhoodTrader
-except (ValueError, ImportError):
-  import robinhood
-  from robinhood import RobinhoodTrader
+from .. import RobinhoodTrader
 
 ##############################
 # Test Methods
