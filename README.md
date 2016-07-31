@@ -3,7 +3,7 @@
 [![Build Status][]][Travis CI] [![Coverage Status][]][Coveralls]
 
 Python Framework to make trades with Robinhood Private API.
-See this [blog post][].
+See this [blog post][] by Rohan Pai for more information.
 
 ## Current Features
 - Placing buy orders (`Robinhood.place_buy_order`)
