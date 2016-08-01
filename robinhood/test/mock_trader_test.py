@@ -98,6 +98,13 @@ def test_account_setup_0():
   account.withdraw(50)
   assert_account_equals(account, cash=float(50))
 
+@with_setup(example_file_setup, example_file_teardown)
+def test_account_setup_1():
+  account = Account(example_file)
+  assert account.num("GOOG") == 42
+  assert account.num("Not a stock") == 0
+  assert account.current_holdings() == { "GOOG": 42 }
+
 @raises(KeyError)
 def test_account_sell_0():
   Account().sell("GOOG", 1, 100)
@@ -113,6 +120,33 @@ def test_account_sell_1():
 def test_account_sell_2():
   account = Account(example_file)
   account.sell("GOOG", 10000, 0.1)
+
+@raises(ValueError)
+def test_account_buy_0():
+  Account().buy("GOOG", 1, 1)
+
+def test_account_buy_1():
+  account = Account()
+  account.cash = 1000.0
+  account.buy("GOOG", 1, 42.0)
+  assert abs(account.available_cash() - 958.0) < 0.001
+
+def test_account_current_price_0():
+  assert Account().current_price("GOOG") is not None
+
+@raises(NameError)
+def test_account_current_price_1():
+  Account().current_price("Not a real stock")
+
+def test_account_market_value_0():
+  assert Account().market_value() == 0
+
+@with_setup(example_file_setup, example_file_teardown)
+def test_account_market_value_1():
+  account = Account(example_file)
+  assert account.market_value() >= 0.42
+
+# MockTrader tests
 
 def test_mock_init_0():
   assert_account_empty(MockTrader().account)

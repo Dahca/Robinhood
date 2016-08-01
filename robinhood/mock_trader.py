@@ -23,7 +23,7 @@ class Account:
     elif file is None or (isfile(str(file)) and create_file):
       self.fill({"cash": float(0), "holdings": {}, "history": {}})
     else:
-      raise NameError("No such file: " + file)
+      raise NameError("No such file: " + str(file))
 
   def __del__(self):
     if self.file is not None and (isfile(self.file) or self.create_file):
@@ -45,35 +45,41 @@ class Account:
   def buy(self, tag, amount, price):
     if self.cash < float(amount) * float(price):
       raise ValueError("Buy amount larger than available cash")
+    if tag not in self.holdings:
+      self.holdings[tag] = 0
     self.holdings[tag] += amount
     self.cash -= (float(amount) * float(price))
 
-  def current_price(tag):
-    url = str(quotes_url) + str(tag) + "/"
+  def current_price(self, tag):
+    url = str(self.quotes_url) + str(tag) + "/"
     # Check for validity of symbol
     try:
       res = json.loads((urllib.urlopen(url)).read());
       if len(res) > 0:
-        return res["symbol"];
+        return res["last_trade_price"];
       else:
         raise NameError("Invalid Symbol: " + tag);
     except ValueError:
       raise NameError("Invalid Symbol: " + tag);
 
   def market_value(self):
-    amount = float(0)
-    for tag, num in self.holdings:
-      amount += (float(num) * float(current_price(tag)))
+    amount = 0.0
+    for tag in self.holdings:
+      num = float(self.holdings[tag])
+      curr_price = float( self.current_price(tag) )
+      amount += num * curr_price
     return amount
 
   def value(self):
     return self.cash + self.market_value()
 
-  def holdings(self):
+  def current_holdings(self):
     return self.holdings
 
   def num(self, tag):
-    return self.holdings[tag]
+    if tag in self.holdings:
+      return self.holdings[tag]
+    return 0
 
   def available_cash(self):
     return self.cash
