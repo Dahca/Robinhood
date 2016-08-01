@@ -75,7 +75,7 @@ class Account:
   def num(self, tag):
     return self.holdings[tag]
 
-  def cash(self):
+  def available_cash(self):
     return self.cash
 
   def deposit(self, dollars):
