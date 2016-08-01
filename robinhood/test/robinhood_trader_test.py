@@ -15,16 +15,13 @@ except ImportError:
   from mock import patch
 
 if sys.version_info[0] < 3:
+  from urllib2 import HTTPError
   input_fn = "__builtin__.raw_input"
 else:
+  from urllib.error import HTTPError
   input_fn = "builtins.input"
 
 from .. import Robinhood
-
-##############################
-# Utility Methods
-##############################
-
 
 ##############################
 # Test Methods
@@ -50,9 +47,29 @@ def test_endpoints_1():
 def test_quote_data_0():
   assert Robinhood().quote_data("GOOG") is not None
 
+@raises(NameError)
 def test_quote_data_1():
-  try:
-    Robinhood().quote_data("Not a stock")
-    assert False
-  except NameError as ne:
-    assert str(ne) == "Invalid Symbol: Not a stock"
+  Robinhood().quote_data("Not a stock")
+
+@patch(input_fn, lambda _: "GOOG")
+def test_quote_data_2():
+  assert Robinhood().quote_data() is not None
+
+@raises(NameError)
+@patch(input_fn, lambda _: "Not a stock")
+def test_quote_data_3():
+  Robinhood().quote_data()
+
+@raises(KeyError)
+def test_place_order_0():
+  Robinhood().place_order(instrument=Robinhood().instruments("GOOG"),
+                          bid_price=0.0, transaction="not a transaction")
+
+@raises(KeyError)
+def test_place_buy_order_0():
+  Robinhood().place_buy_order(Robinhood().instruments("GOOG"), 1, 1)
+
+@raises(KeyError)
+def test_place_sell_order_0():
+  Robinhood().place_sell_order(Robinhood().instruments("GOOG"), 1, 1)
+

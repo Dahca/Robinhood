@@ -99,7 +99,10 @@ class Robinhood:
   def instruments(self, stock=None):
     # Prompt for stock if not entered
     if stock is None:
-      stock = input("Symbol: ")
+      if sys.version_info[0] < 3:
+        stock = raw_input("Symbol: ")
+      else:
+        stock = input("Symbol: ")
     params = {"query": stock.upper()}
     res = self.session.get(self.endpoints["instruments"], params=params).json()
     return res["results"]
@@ -107,7 +110,10 @@ class Robinhood:
   def quote_data(self, stock=None):
     # Prompt for stock if not entered
     if stock is None:
-      stock = input("Symbol: ")
+      if sys.version_info[0] < 3:
+        stock = raw_input("Symbol: ")
+      else:
+        stock = input("Symbol: ")
     url = str(self.endpoints["quotes"]) + str(stock) + "/"
     # Check for validity of symbol
     try:
