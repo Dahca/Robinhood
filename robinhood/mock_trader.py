@@ -1,7 +1,14 @@
 from __future__ import print_function
 
-import json
-import urllib
+import json, urllib, sys
+
+if sys.version_info[0] < 3:
+  from urllib import urlopen, getproxies
+  from urllib2 import HTTPError
+  input = raw_input
+else:
+  from urllib.error import HTTPError
+  from urllib.request import urlopen, getproxies
 
 from os.path import isfile
 
@@ -54,12 +61,12 @@ class Account:
     url = str(self.quotes_url) + str(tag) + "/"
     # Check for validity of symbol
     try:
-      res = json.loads((urllib.urlopen(url)).read());
+      res = json.loads(urlopen(url).read().decode("utf-8"));
       if len(res) > 0:
         return res["last_trade_price"];
       else:
         raise NameError("Invalid Symbol: " + tag);
-    except ValueError:
+    except (ValueError, HTTPError):
       raise NameError("Invalid Symbol: " + tag);
 
   def market_value(self):
