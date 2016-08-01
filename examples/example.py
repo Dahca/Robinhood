@@ -1,7 +1,7 @@
 #! /usr/bin/python
 
 def main():
-  from Robinhood.robinhood import Robinhood
+  from robinhood import Robinhood
   # Setup
   my_trader = Robinhood();
   # Login

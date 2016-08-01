@@ -2,11 +2,25 @@
 # Tests for the Mock and Account classes
 ###############################################################################
 
+from nose.tools import *
+
 from .. import MockTrader, Account
 
 ##############################
 # Utility Methods
 ##############################
+
+dne = "this_file_does_not_exist.jpeg"
+
+def dne_setup():
+  from os.path import isfile
+  from os import remove
+  if isfile(dne):
+    remove(dne)
+
+def dne_teardown():
+  from os.path import isfile
+  assert not isfile(dne)
 
 def get_res_name(name):
   from os.path import dirname, abspath, join, isfile
@@ -42,6 +56,11 @@ def test_account_init_2():
   filename = get_res_name("res/init_test.json")
   account = Account(filename)
   assert_account_equals(account, 3.7, {"foo": "bar"}, {"GOOG": 3}, filename)
+  
+@raises(NameError)
+@with_setup(dne_setup, dne_teardown)
+def test_account_init_3():
+  Account(file=dne)
 
 def test_account_setup_0():
   account = Account()
@@ -70,4 +89,38 @@ def test_mock_portfolios_0():
   assert MockTrader().portfolios() == {"equity": float(0), 
                                        "market_value": float(0)}
 
+# When/if these get implemented, these tests remind the feature writer to come
+# back over here and write some tests!
+
+@raises(NotImplementedError)
+def test_investment_profile_0():
+  MockTrader().investment_profile()
+
+@raises(NotImplementedError)
+def test_equity_previous_close_0():
+  MockTrader().equity_previous_close()
+
+@raises(NotImplementedError)
+def test_excess_margin_0():
+  MockTrader().excess_margin()
+
+@raises(NotImplementedError)
+def test_extended_hours_equity_0():
+  MockTrader().extended_hours_equity()
+
+@raises(NotImplementedError)
+def test_extended_hours_market_value_0():
+  MockTrader().extended_hours_market_value()
+
+@raises(NotImplementedError)
+def test_last_core_equity_0():
+  MockTrader().last_core_equity()
+
+@raises(NotImplementedError)
+def test_last_core_market_value_0():
+  MockTrader().last_core_market_value()
+ 
+@raises(NotImplementedError)
+def test_positions_0():
+  MockTrader().positions()
 

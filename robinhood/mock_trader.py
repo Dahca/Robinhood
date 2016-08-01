@@ -13,19 +13,20 @@ class Account:
   # Used to calculate the value of an account
   quotes_url = Robinhood.endpoints["quotes"]
 
-  def __init__(self, file=None):
+  def __init__(self, file=None, create_file=False):
     self.file = file
+    self.create_file = create_file
     if isfile(str(file)):
       json_data = open(self.file).read()
       json_obj = json.loads(json_data)
       self.fill(json_obj)
-    elif file is None:
+    elif file is None or (isfile(str(file)) and create_file):
       self.fill({"cash": float(0), "holdings": {}, "history": {}})
     else:
       raise NameError("No such file: " + file)
 
   def __del__(self):
-    if self.file is not None:
+    if self.file is not None and (isfile(self.file) or self.create_file):
       with open(self.file, "w+") as f:
         json.dump(self.raw(), f, sort_keys=True, indent=4, ensure_ascii=False,
             separators=(",", ": "))

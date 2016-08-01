@@ -6,7 +6,7 @@ def add_import_path():
   # in regular, non-package mode.
   from os import sys, path
   from os.path import dirname
-  sys.path.append(dirname(dirname(dirname(path.abspath(__file__)))))
+  sys.path.append(dirname(dirname(path.abspath(__file__))))
 
 if __name__ != "__main__":
   add_import_path()
