@@ -9,7 +9,6 @@ import sys
 if sys.version_info[0] < 3:
   from urllib import urlopen, getproxies
   from urllib2 import HTTPError
-  input = raw_input
 else:
   from urllib.error import HTTPError
   from urllib.request import urlopen, getproxies
@@ -68,7 +67,10 @@ class Robinhood:
 
   def login(self, username=None, password=None, retry=True):
     if username is None:
-      username = input("Username: ")
+      if sys.version_info[0] < 3:
+        username = raw_input("Username: ")
+      else:
+        username = input("Username: ")
     if password is None:
       password = getpass.getpass()
     self.username = username

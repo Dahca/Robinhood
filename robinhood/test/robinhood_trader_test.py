@@ -5,7 +5,26 @@
 # login.
 ###############################################################################
 
+import sys
+from nose import with_setup
+from nose.tools import *
+
+try:
+  from unittest.mock import patch
+except ImportError:
+  from mock import patch
+
+if sys.version_info[0] < 3:
+  input_fn = "__builtin__.raw_input"
+else:
+  input_fn = "builtins.input"
+
 from .. import Robinhood
+
+##############################
+# Utility Methods
+##############################
+
 
 ##############################
 # Test Methods
@@ -16,6 +35,11 @@ def test_init_0():
 
 def test_login_0():
   assert Robinhood().login("foo", "bar", False) is False
+
+@patch(input_fn, lambda _: "not a username")
+@patch("getpass.getpass",  lambda: "not a password")
+def test_login_1():
+  assert Robinhood().login(retry=False) is False
 
 def test_endpoints_0():
   assert Robinhood().investment_profile() is not None
