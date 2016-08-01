@@ -2,7 +2,7 @@
 from setuptools import setup
 
 setup(name='robinhood',
-      version='0.1',
+      version='1.0.0',
       description='Stock Trading API based on Robinhood',
       author='Ian Glen Neal',
       author_email='ian.gl.neal@gmail.com',

@@ -1,3 +1,6 @@
 mock
 nose
 requests
+setuptools
+twine
+wheel
