@@ -129,7 +129,8 @@ class Robinhood:
     return self.quote_data(stock)["symbol"]
 
   def print_quote(self, stock=None):
-    print(self.quote_data(stock)["symbol"] + ": $" + data["last_trade_price"])
+    data = self.quote_data(stock)
+    print(data["symbol"] + ": $" + data["last_trade_price"])
 
   def print_quotes(self, stocks):
     for stock in stocks:

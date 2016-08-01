@@ -60,7 +60,47 @@ def test_quote_data_2():
 def test_quote_data_3():
   Robinhood().quote_data()
 
+def test_get_quote_0():
+  assert Robinhood().get_quote("GOOG") is not None
+
+def test_print_quote_0():
+  Robinhood().print_quote("GOOG")
+
+def test_ask_price_0():
+  assert Robinhood().ask_price("GOOG") is not None
+
+def test_ask_size_0():
+  assert Robinhood().ask_size("GOOG") is not None
+
+def test_bid_price_0():
+  assert Robinhood().bid_price("GOOG") is not None
+
+def test_bid_size_0():
+  assert Robinhood().bid_size("GOOG") is not None
+
+def test_last_trade_price_0():
+  assert Robinhood().last_trade_price("GOOG") is not None
+
+def test_previous_close_0():
+  assert Robinhood().previous_close("GOOG") is not None
+
+def test_previous_close_date_0():
+  assert Robinhood().previous_close_date("GOOG") is not None
+
+def test_adjusted_previous_close_0():
+  assert Robinhood().adjusted_previous_close("GOOG") is not None
+
+def test_symbol_0():
+  assert Robinhood().symbol("GOOG") == "GOOG"
+
+def test_last_updated_at_0():
+  assert Robinhood().last_updated_at("GOOG") is not None
+
 # Things we can't really test well without an actual account to log into
+
+@raises(KeyError)
+def test_get_account_0():
+  Robinhood().get_account()
 
 @raises(KeyError)
 def test_place_order_0():
