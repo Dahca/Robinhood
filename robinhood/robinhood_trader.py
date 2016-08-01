@@ -214,8 +214,8 @@ class Robinhood:
   # Returns a list of symbols of securities of which there are more
   # than zero shares in user's portfolio.
   def securities_owned(self):
-    positions = self.positions()
     securities = []
+    positions = self.positions()
     for position in positions:
       quantity = float(position["quantity"])
       if quantity > 0:
