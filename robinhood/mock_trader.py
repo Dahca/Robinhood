@@ -5,13 +5,13 @@ import urllib
 
 from os.path import isfile
 
-from robinhood_trader import RobinhoodTrader
+from robinhood_trader import Robinhood
 
 # A simulated account for use by the Mock class
 class Account:
 
   # Used to calculate the value of an account
-  quotes_url = RobinhoodTrader.endpoints["quotes"]
+  quotes_url = Robinhood.endpoints["quotes"]
 
   def __init__(self, file=None):
     self.file = file
@@ -95,14 +95,14 @@ class Account:
 
 # This class is for simulating trades based on real market data retrieved from
 # Robinhood
-class MockTrader(RobinhoodTrader):
+class MockTrader(Robinhood):
 
   ##############################
   # Logging in and initializing
   ##############################
 
   def __init__(self, account_file=None):
-    RobinhoodTrader.__init__(self)
+    Robinhood.__init__(self)
     self.account = Account(account_file)
 
   ##############################

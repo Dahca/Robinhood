@@ -66,3 +66,8 @@ def test_mock_init_3():
   mock = MockTrader(filename)
   assert mock.securities_owned() == ["GOOG"]
 
+def test_mock_portfolios_0():
+  assert MockTrader().portfolios() == {"equity": float(0), 
+                                       "market_value": float(0)}
+
+
