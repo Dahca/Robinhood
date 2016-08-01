@@ -38,11 +38,15 @@ def test_login_0():
 def test_login_1():
   assert Robinhood().login(retry=False) is False
 
-def test_endpoints_0():
+def test_investment_profile_0():
   assert Robinhood().investment_profile() is not None
 
-def test_endpoints_1():
+def test_instruments_0():
   assert Robinhood().instruments("GOOG") is not None
+
+@patch(input_fn, lambda _: "GOOG")
+def test_investment_profile_1():
+  assert Robinhood().instruments() is not None
 
 def test_quote_data_0():
   assert Robinhood().quote_data("GOOG") is not None
@@ -65,6 +69,9 @@ def test_get_quote_0():
 
 def test_print_quote_0():
   Robinhood().print_quote("GOOG")
+
+def test_print_quotes_0():
+  Robinhood().print_quotes(["GOOG", "F"])
 
 def test_ask_price_0():
   assert Robinhood().ask_price("GOOG") is not None
