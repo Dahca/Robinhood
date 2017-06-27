@@ -121,6 +121,8 @@ class Robinhood:
       if len(res) > 0:
         return res
     except (ValueError, HTTPError) as err:
+      if isinstance(err, HTTPError) and err.code == 404:
+        raise NameError("Invalid Symbol: " + stock)
       if isinstance(err, HTTPError) and err.code != 400:
         raise
     raise NameError("Invalid Symbol: " + stock)
